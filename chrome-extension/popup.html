@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 400px;
+      min-height: 500px;
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #6b7280;
+      font-size: 14px;
+    }
+    
+    .login-section {
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 12px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    
+    button:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+    }
+    
+    .secondary-btn {
+      background-color: #6b7280;
+    }
+    
+    .secondary-btn:hover {
+      background-color: #4b5563;
+    }
+    
+    .success-btn {
+      background-color: #059669;
+    }
+    
+    .success-btn:hover {
+      background-color: #047857;
+    }
+    
+    .user-info {
+      background-color: #f3f4f6;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .balance {
+      font-weight: 600;
+      color: #059669;
+    }
+    
+    .translation-result {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+    
+    .error {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .success {
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .platform-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .platform-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      background-color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .platform-btn.active {
+      background-color: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">TranslateHub</div>
+    <div class="subtitle">Chinese to English Translation</div>
+  </div>
+
+  <div id="error-message" class="error hidden"></div>
+  <div id="success-message" class="success hidden"></div>
+
+  <!-- Login Section -->
+  <div id="login-section" class="login-section">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password">
+    </div>
+    <button id="login-btn">Login</button>
+    <button id="register-btn" class="secondary-btn">Register</button>
+  </div>
+
+  <!-- Main App Section -->
+  <div id="app-section" class="hidden">
+    <div id="user-info" class="user-info">
+      <div>Email: <span id="user-email"></span></div>
+      <div>Balance: <span id="user-balance" class="balance"></span></div>
+      <div>Free translations left: <span id="free-translations"></span></div>
+    </div>
+
+    <div class="form-group">
+      <label>Platform:</label>
+      <div class="platform-selector">
+        <button class="platform-btn active" data-platform="amazon">Amazon</button>
+        <button class="platform-btn" data-platform="ebay">eBay</button>
+      </div>
+    </div>
+
+    <button id="capture-btn" class="success-btn">Capture Page Content</button>
+    
+    <div class="form-group">
+      <label for="chinese-text">Chinese Text:</label>
+      <textarea id="chinese-text" rows="4" placeholder="Chinese text will appear here or enter manually..."></textarea>
+    </div>
+
+    <button id="translate-btn">Translate</button>
+
+    <div id="translation-result" class="translation-result hidden">
+      <label>English Translation:</label>
+      <div id="english-text"></div>
+    </div>
+
+    <button id="logout-btn" class="secondary-btn">Logout</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
