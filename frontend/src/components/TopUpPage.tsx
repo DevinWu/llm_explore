@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
 import toast from 'react-hot-toast';
@@ -21,7 +21,7 @@ export default function TopUpPage() {
 
     setLoading(true);
     try {
-      const result = await api.topUp(numAmount, paymentMethod);
+      await api.topUp(numAmount, paymentMethod);
       toast.success(`Successfully topped up ¥${numAmount.toFixed(2)}!`);
       await refreshUser();
       setAmount('');
