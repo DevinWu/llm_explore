@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "易上架",
-  "version": "1.0.0",
-  "description": "捕获页面内容并将中文翻译成英文，帮助电商卖家快速上架产品",
+  "version": "1.1.0",
+  "description": "捕获页面内容和图片文字并将中文翻译成英文，帮助电商卖家快速上架产品",
   "permissions": [
     "activeTab",
     "storage",
@@ -24,5 +24,16 @@
   ],
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "js/tesseract.min.js",
+        "js/worker.min.js", 
+        "js/tesseract-core.wasm.js",
+        "traineddata/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

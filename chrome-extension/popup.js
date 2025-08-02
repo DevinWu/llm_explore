@@ -171,14 +171,19 @@ class ExtensionApp {
       });
 
       if (results && results[0] && results[0].result) {
-        const content = results[0].result;
-        document.getElementById('chinese-text').value = content;
-        this.showSuccess('Page content captured!');
+        const result = results[0].result;
+        document.getElementById('chinese-text').value = result.content;
+        
+        let message = '页面内容已捕获！';
+        if (result.ocrText) {
+          message += ' (包含图片文字)';
+        }
+        this.showSuccess(message);
       } else {
-        this.showError('No content found on the page');
+        this.showError('页面上未找到内容');
       }
     } catch (error) {
-      this.showError('Failed to capture page content: ' + error.message);
+      this.showError('捕获页面内容失败: ' + error.message);
     }
   }
 
@@ -261,17 +266,15 @@ class ExtensionApp {
 }
 
 function extractPageContent() {
-  const chineseRegex = /[\u4e00-\u9fff]+/g;
-  const textContent = document.body.innerText || document.body.textContent || '';
-  
-  const chineseMatches = textContent.match(chineseRegex);
-  
-  if (chineseMatches && chineseMatches.length > 0) {
-    return chineseMatches.join(' ').substring(0, 500);
-  }
-  
-  const allText = textContent.replace(/\s+/g, ' ').trim();
-  return allText.substring(0, 200);
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage({ action: 'extractContent' }, (response) => {
+      if (response) {
+        resolve(response);
+      } else {
+        resolve({ content: '', regularText: '', ocrText: '' });
+      }
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
