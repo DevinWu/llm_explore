@@ -166,8 +166,8 @@
 </head>
 <body>
   <div class="header">
-    <div class="logo">TranslateHub</div>
-    <div class="subtitle">Chinese to English Translation</div>
+    <div class="logo">易上架</div>
+    <div class="subtitle">中文转英文翻译助手</div>
   </div>
 
   <div id="error-message" class="error hidden"></div>
@@ -176,48 +176,48 @@
   <!-- Login Section -->
   <div id="login-section" class="login-section">
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" placeholder="Enter your email">
+      <label for="email">邮箱:</label>
+      <input type="email" id="email" placeholder="请输入您的邮箱">
     </div>
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" placeholder="Enter your password">
+      <label for="password">密码:</label>
+      <input type="password" id="password" placeholder="请输入您的密码">
     </div>
-    <button id="login-btn">Login</button>
-    <button id="register-btn" class="secondary-btn">Register</button>
+    <button id="login-btn">登录</button>
+    <button id="register-btn" class="secondary-btn">注册</button>
   </div>
 
   <!-- Main App Section -->
   <div id="app-section" class="hidden">
     <div id="user-info" class="user-info">
-      <div>Email: <span id="user-email"></span></div>
-      <div>Balance: <span id="user-balance" class="balance"></span></div>
-      <div>Free translations left: <span id="free-translations"></span></div>
+      <div>邮箱: <span id="user-email"></span></div>
+      <div>余额: <span id="user-balance" class="balance"></span></div>
+      <div>剩余免费翻译次数: <span id="free-translations"></span></div>
     </div>
 
     <div class="form-group">
-      <label>Platform:</label>
+      <label>平台:</label>
       <div class="platform-selector">
-        <button class="platform-btn active" data-platform="amazon">Amazon</button>
-        <button class="platform-btn" data-platform="ebay">eBay</button>
+        <button class="platform-btn active" data-platform="amazon">亚马逊</button>
+        <button class="platform-btn" data-platform="ebay">易贝</button>
       </div>
     </div>
 
-    <button id="capture-btn" class="success-btn">Capture Page Content</button>
+    <button id="capture-btn" class="success-btn">捕获页面内容</button>
     
     <div class="form-group">
-      <label for="chinese-text">Chinese Text:</label>
-      <textarea id="chinese-text" rows="4" placeholder="Chinese text will appear here or enter manually..."></textarea>
+      <label for="chinese-text">中文文本:</label>
+      <textarea id="chinese-text" rows="4" placeholder="中文文本将显示在这里，或手动输入..."></textarea>
     </div>
 
-    <button id="translate-btn">Translate</button>
+    <button id="translate-btn">翻译</button>
 
     <div id="translation-result" class="translation-result hidden">
-      <label>English Translation:</label>
+      <label>英文翻译:</label>
       <div id="english-text"></div>
     </div>
 
-    <button id="logout-btn" class="secondary-btn">Logout</button>
+    <button id="logout-btn" class="secondary-btn">退出登录</button>
   </div>
 
   <script src="popup.js"></script>

@@ -16,7 +16,7 @@ export default function Register() {
     e.preventDefault();
     
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error('密码不匹配');
       return;
     }
 
@@ -24,10 +24,10 @@ export default function Register() {
 
     try {
       await register(email, password);
-      toast.success('Registration successful! Please login.');
+      toast.success('注册成功！请登录。');
       navigate('/login');
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Registration failed');
+      toast.error(error instanceof Error ? error.message : '注册失败');
     } finally {
       setLoading(false);
     }
@@ -38,12 +38,12 @@ export default function Register() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
+            创建您的账户
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
+            或者{' '}
             <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
-              sign in to your existing account
+              登录现有账户
             </Link>
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function Register() {
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">
-                Email address
+                邮箱地址
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -64,7 +64,7 @@ export default function Register() {
                   autoComplete="email"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="邮箱地址"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -72,7 +72,7 @@ export default function Register() {
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                密码
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -85,7 +85,7 @@ export default function Register() {
                   autoComplete="new-password"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="密码"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -93,7 +93,7 @@ export default function Register() {
             </div>
             <div>
               <label htmlFor="confirmPassword" className="sr-only">
-                Confirm Password
+                确认密码
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -106,7 +106,7 @@ export default function Register() {
                   autoComplete="new-password"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Confirm password"
+                  placeholder="确认密码"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -123,7 +123,7 @@ export default function Register() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <UserPlus className="h-5 w-5 text-blue-500 group-hover:text-blue-400" />
               </span>
-              {loading ? 'Creating account...' : 'Create account'}
+              {loading ? '创建账户中...' : '创建账户'}
             </button>
           </div>
         </form>

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "TranslateHub Extension",
+  "name": "易上架",
   "version": "1.0.0",
-  "description": "Capture page content and translate Chinese text to English",
+  "description": "捕获页面内容并将中文翻译成英文，帮助电商卖家快速上架产品",
   "permissions": [
     "activeTab",
     "storage",
@@ -14,7 +14,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "TranslateHub"
+    "default_title": "易上架"
   },
   "content_scripts": [
     {

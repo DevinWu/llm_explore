@@ -16,7 +16,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-4">
             <Link to="/dashboard" className="text-xl font-bold text-blue-600">
-              TranslateHub
+              易上架
             </Link>
             <div className="hidden md:flex space-x-4">
               <Link
@@ -26,7 +26,7 @@ export default function Navbar() {
                 }`}
               >
                 <User size={16} />
-                <span>Dashboard</span>
+                <span>仪表板</span>
               </Link>
               <Link
                 to="/translate"
@@ -35,7 +35,7 @@ export default function Navbar() {
                 }`}
               >
                 <Languages size={16} />
-                <span>Translate</span>
+                <span>翻译</span>
               </Link>
               <Link
                 to="/history"
@@ -44,7 +44,7 @@ export default function Navbar() {
                 }`}
               >
                 <History size={16} />
-                <span>History</span>
+                <span>历史</span>
               </Link>
               <Link
                 to="/topup"
@@ -53,18 +53,18 @@ export default function Navbar() {
                 }`}
               >
                 <CreditCard size={16} />
-                <span>Top Up</span>
+                <span>充值</span>
               </Link>
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">Balance: ¥{user.balance.toFixed(2)}</span>
+            <span className="text-sm text-gray-600">余额: ¥{user.balance.toFixed(2)}</span>
             <button
               onClick={logout}
               className="flex items-center space-x-1 px-3 py-2 text-gray-600 hover:text-red-600 rounded-md"
             >
               <LogOut size={16} />
-              <span>Logout</span>
+              <span>退出</span>
             </button>
           </div>
         </div>

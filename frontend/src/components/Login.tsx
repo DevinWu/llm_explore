@@ -29,12 +29,12 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            登录您的账户
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
+            或者{' '}
             <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              create a new account
+              创建新账户
             </Link>
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function Login() {
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">
-                Email address
+                邮箱地址
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -55,7 +55,7 @@ export default function Login() {
                   autoComplete="email"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="邮箱地址"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -63,7 +63,7 @@ export default function Login() {
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                密码
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -76,7 +76,7 @@ export default function Login() {
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="密码"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -93,7 +93,7 @@ export default function Login() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LogIn className="h-5 w-5 text-blue-500 group-hover:text-blue-400" />
               </span>
-              {loading ? 'Signing in...' : 'Sign in'}
+              {loading ? '登录中...' : '登录'}
             </button>
           </div>
         </form>
