@@ -167,6 +167,26 @@ class ExtensionApp {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       console.log('Active tab:', tab);
       
+      if (!tab || !tab.id) {
+        throw new Error('无法访问当前标签页');
+      }
+      
+      if (tab.url && (tab.url.startsWith('chrome://') || tab.url.startsWith('chrome-extension://') || tab.url.startsWith('moz-extension://'))) {
+        throw new Error('无法在此页面上捕获内容（受限页面）');
+      }
+      
+      try {
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ['content.js']
+        });
+        console.log('Content script injected successfully');
+      } catch (injectionError) {
+        console.log('Content script injection failed or already exists:', injectionError.message);
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       const response = await chrome.tabs.sendMessage(tab.id, { action: 'extractContent' });
       
       console.log('Received response from content script:', response);
@@ -180,7 +200,11 @@ class ExtensionApp {
       }
     } catch (error) {
       console.error('Capture error:', error);
-      this.showError('捕获页面内容失败: ' + error.message);
+      if (error.message.includes('Could not establish connection')) {
+        this.showError('无法连接到页面内容脚本。请刷新页面后重试。');
+      } else {
+        this.showError('捕获页面内容失败: ' + error.message);
+      }
     }
   }
 
