@@ -167,26 +167,20 @@ class ExtensionApp {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       console.log('Active tab:', tab);
       
-      const results = await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: extractPageContent,
-      });
-
-      console.log('Script execution results:', results);
-
-      if (results && results[0] && results[0].result) {
-        const result = results[0].result;
-        console.log('Extracted content:', result);
-        
-        document.getElementById('chinese-text').value = result.content;
+      const response = await chrome.tabs.sendMessage(tab.id, { action: 'extractContent' });
+      
+      console.log('Received response from content script:', response);
+      
+      if (response && response.content) {
+        document.getElementById('chinese-text').value = response.content;
         
         let message = '页面内容已捕获！';
-        if (result.ocrText) {
+        if (response.ocrText) {
           message += ' (包含图片文字)';
         }
         this.showSuccess(message);
       } else {
-        console.log('No content found in results');
+        console.log('No content found in response');
         this.showError('页面上未找到内容');
       }
     } catch (error) {
@@ -273,23 +267,6 @@ class ExtensionApp {
   }
 }
 
-function extractPageContent() {
-  console.log('extractPageContent function called');
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({ action: 'extractContent' }, (response) => {
-      console.log('Received response from content script:', response);
-      if (chrome.runtime.lastError) {
-        console.error('Runtime error:', chrome.runtime.lastError);
-        resolve({ content: '', regularText: '', ocrText: '' });
-      } else if (response) {
-        resolve(response);
-      } else {
-        console.log('No response received');
-        resolve({ content: '', regularText: '', ocrText: '' });
-      }
-    });
-  });
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   new ExtensionApp();

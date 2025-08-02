@@ -84,38 +84,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     
     console.log('Regular text extracted:', regularText);
     
-    extractTextFromImages().then(ocrText => {
-      console.log('OCR text extracted:', ocrText);
-      
-      const ocrChineseMatches = ocrText.match(chineseRegex);
-      if (ocrChineseMatches && ocrChineseMatches.length > 0) {
-        ocrText = ocrChineseMatches.join(' ').substring(0, 300);
-      } else {
-        ocrText = ocrText.substring(0, 100);
-      }
-      
-      let combinedText = regularText;
-      if (ocrText) {
-        combinedText += (regularText ? ' ' : '') + ocrText;
-      }
-      
-      console.log('Sending response:', { content: combinedText, regularText, ocrText });
-      
-      sendResponse({ 
-        content: combinedText,
-        regularText: regularText,
-        ocrText: ocrText
-      });
-    }).catch(error => {
-      console.log('OCR extraction failed:', error);
-      
-      sendResponse({ 
-        content: regularText,
-        regularText: regularText,
-        ocrText: ''
-      });
+    console.log('Sending response:', { content: regularText, regularText, ocrText: '' });
+    sendResponse({ 
+      content: regularText,
+      regularText: regularText,
+      ocrText: ''
     });
     
-    return true; // Keep message channel open for async response
+    return true;
   }
 });
