@@ -173,12 +173,7 @@ class ExtensionApp {
       
       if (response && response.content) {
         document.getElementById('chinese-text').value = response.content;
-        
-        let message = '页面内容已捕获！';
-        if (response.ocrText) {
-          message += ' (包含图片文字)';
-        }
-        this.showSuccess(message);
+        this.showSuccess('页面内容已捕获！');
       } else {
         console.log('No content found in response');
         this.showError('页面上未找到内容');

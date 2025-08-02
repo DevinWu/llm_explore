@@ -1,70 +1,5 @@
 console.log('易上架 content script loaded');
 
-async function extractTextFromImages() {
-  console.log('Starting image text extraction...');
-  const images = document.querySelectorAll('img');
-  console.log('Found', images.length, 'images on page');
-  
-  let ocrText = '';
-  let processedImages = 0;
-  
-  for (const img of images) {
-    try {
-      console.log('Processing image:', img.src, 'Size:', img.width, 'x', img.height);
-      
-      if (img.width < 50 || img.height < 50) {
-        console.log('Skipping small image');
-        continue;
-      }
-      
-      if (!img.complete) {
-        await new Promise(resolve => {
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      }
-      
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.naturalWidth || img.width;
-      canvas.height = img.naturalHeight || img.height;
-      
-      ctx.drawImage(img, 0, 0);
-      
-      const blob = await new Promise(resolve => canvas.toBlob(resolve));
-      console.log('Created blob for OCR processing');
-      
-      const result = await chrome.runtime.sendMessage({
-        action: 'performOCR',
-        imageData: await blobToBase64(blob)
-      });
-      
-      console.log('OCR result for image:', result);
-      
-      if (result && result.text) {
-        ocrText += ' ' + result.text;
-        processedImages++;
-      }
-      
-      if (processedImages >= 3) break;
-      
-    } catch (error) {
-      console.log('OCR error for image:', error);
-    }
-  }
-  
-  console.log('Finished processing images. OCR text:', ocrText.trim());
-  return ocrText.trim();
-}
-
-function blobToBase64(blob) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
-  });
-}
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'extractContent') {
     console.log('Content script received extractContent message');
@@ -84,11 +19,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     
     console.log('Regular text extracted:', regularText);
     
-    console.log('Sending response:', { content: regularText, regularText, ocrText: '' });
+    console.log('Sending response:', { content: regularText });
     sendResponse({ 
-      content: regularText,
-      regularText: regularText,
-      ocrText: ''
+      content: regularText
     });
     
     return true;

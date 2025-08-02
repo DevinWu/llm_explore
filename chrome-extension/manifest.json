@@ -25,15 +25,5 @@
   "background": {
     "service_worker": "background.js"
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "js/tesseract.min.js",
-        "js/worker.min.js", 
-        "js/tesseract-core.wasm.js",
-        "traineddata/*"
-      ],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  "web_accessible_resources": []
 }
