@@ -1,6 +1,11 @@
 console.log('易上架 background script loaded');
 
-importScripts('js/tesseract.min.js');
+try {
+  importScripts('js/tesseract.min.js');
+  console.log('Tesseract.js loaded successfully');
+} catch (error) {
+  console.error('Failed to load Tesseract.js:', error);
+}
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log('易上架 extension installed');

@@ -163,15 +163,21 @@ class ExtensionApp {
 
   async capturePageContent() {
     try {
+      console.log('Starting page content capture...');
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      console.log('Active tab:', tab);
       
       const results = await chrome.scripting.executeScript({
         target: { tabId: tab.id },
         function: extractPageContent,
       });
 
+      console.log('Script execution results:', results);
+
       if (results && results[0] && results[0].result) {
         const result = results[0].result;
+        console.log('Extracted content:', result);
+        
         document.getElementById('chinese-text').value = result.content;
         
         let message = '页面内容已捕获！';
@@ -180,9 +186,11 @@ class ExtensionApp {
         }
         this.showSuccess(message);
       } else {
+        console.log('No content found in results');
         this.showError('页面上未找到内容');
       }
     } catch (error) {
+      console.error('Capture error:', error);
       this.showError('捕获页面内容失败: ' + error.message);
     }
   }
@@ -266,11 +274,17 @@ class ExtensionApp {
 }
 
 function extractPageContent() {
+  console.log('extractPageContent function called');
   return new Promise((resolve) => {
     chrome.runtime.sendMessage({ action: 'extractContent' }, (response) => {
-      if (response) {
+      console.log('Received response from content script:', response);
+      if (chrome.runtime.lastError) {
+        console.error('Runtime error:', chrome.runtime.lastError);
+        resolve({ content: '', regularText: '', ocrText: '' });
+      } else if (response) {
         resolve(response);
       } else {
+        console.log('No response received');
         resolve({ content: '', regularText: '', ocrText: '' });
       }
     });
