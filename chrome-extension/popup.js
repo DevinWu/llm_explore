@@ -175,17 +175,7 @@ class ExtensionApp {
         throw new Error('无法在此页面上捕获内容（受限页面）');
       }
       
-      try {
-        await chrome.scripting.executeScript({
-          target: { tabId: tab.id },
-          files: ['content.js']
-        });
-        console.log('Content script injected successfully');
-      } catch (injectionError) {
-        console.log('Content script injection failed or already exists:', injectionError.message);
-      }
-      
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       const response = await chrome.tabs.sendMessage(tab.id, { action: 'extractContent' });
       
@@ -194,6 +184,9 @@ class ExtensionApp {
       if (response && response.content) {
         document.getElementById('chinese-text').value = response.content;
         this.showSuccess('页面内容已捕获！');
+      } else if (response && response.error) {
+        console.log('Content script error:', response.error);
+        this.showError('内容提取失败: ' + response.error);
       } else {
         console.log('No content found in response');
         this.showError('页面上未找到内容');
@@ -201,7 +194,7 @@ class ExtensionApp {
     } catch (error) {
       console.error('Capture error:', error);
       if (error.message.includes('Could not establish connection')) {
-        this.showError('无法连接到页面内容脚本。请刷新页面后重试。');
+        this.showError('无法连接到页面内容脚本。请刷新页面后重试，或检查页面是否为受限页面。');
       } else {
         this.showError('捕获页面内容失败: ' + error.message);
       }
